@@ -22,6 +22,15 @@ const array = {
 			if ((typeof(a[i]) === "number") && (ret === undefined || a[i] < ret))
 				ret = a[i];
 		return ret;
+	},
+
+	inInterval: function(a, min, max) {
+		let ret = 0;
+		for (let i=0; i<a.length; i++) {
+			if (a[i] >= min && a[i] < max)
+				ret++;
+		}
+		return ret;
 	}
 
 };
