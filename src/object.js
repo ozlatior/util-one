@@ -20,6 +20,20 @@ const object = {
 				return false;
 		}
 		return true;
+	},
+
+	deepCopy: function(a) {
+		if (typeof(a) !== "object")
+			return a;
+		let ret = {};
+		if (a instanceof Array)
+			ret = [];
+		for (let i in a) {
+			if (!(a.hasOwnProperty(i)))
+				continue;
+			ret[i] = object.deepCopy(a[i]);
+		}
+		return ret;
 	}
 
 };
