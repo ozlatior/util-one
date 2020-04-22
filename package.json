@@ -5,6 +5,7 @@
 		"test": "mocha"
 	},
 	"dependencies": {
-		"mocha": "*"
+		"mocha": "*",
+		"colors": "*"
 	}
 }

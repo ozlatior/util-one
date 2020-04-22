@@ -50,6 +50,89 @@ const string = {
 		str = string.trimLeft(str, chars);
 		str = string.trimRight(str, chars);
 		return str;
+	},
+
+	/*
+	 * A set of string prototype function implementations for formatted strings
+	 */
+	colors: {
+
+		REGEXP: /\u001b\[[0-9a-f]{1,2}m/g,
+
+		apply: function(str, colors) {
+			if (!colors)
+				return str;
+			for (let i=0; i<colors.length; i++)
+				str = str[colors[i]];
+			return str;
+		},
+
+		remove: function(str) {
+			return str.replace(string.colors.REGEXP, "");
+		},
+
+		indexOf: function(needle, haystack, previousIndex) {
+			return string.colors.remove(haystack).indexOf(needle, previousIndex);
+		},
+
+		charAt: function(index, str) {
+			return string.colors.remove(str).charAt(index);
+		},
+
+		length: function(str) {
+			return string.colors.remove(str).length;
+		},
+
+		slice: function(str, start, end) {
+			let indexes = string.colors.getIndexes(str);
+			if (start < -indexes.fwdLen)
+				start = 0;
+			if (end < -indexes.fwdLen)
+				end = 0;
+			if (start < 0)
+				start += indexes.fwdLen;
+			if (end < 0)
+				end += indexes.fwdLen;
+			if (start > indexes.fwdLen)
+				start = indexes.fwdLen;
+			if (end > indexes.fwdLen)
+				end = indexes.fwdLen;
+			start = indexes.rev[start];
+			end = indexes.rev[end];
+			return str.slice(start, end);
+		},
+
+		getIndexes: function(str) {
+			let fwd = new Array(str.length);
+			let rev = [];
+			fwd.fill(1);
+			let m = str.match(string.colors.REGEXP);
+			if (m === null)
+				m = [];
+			let j = 0;
+			while (m.length > 0) {
+				let token = m.shift();
+				j = str.indexOf(token, j);
+				for (let i=0; i<token.length; i++) {
+					fwd[j] = 0;
+					j++;
+				}
+			}
+			fwd.unshift(0);
+			rev.push(0);
+			for (let i=1; i<fwd.length; i++) {
+				if (fwd[i] !== 0)
+					rev.push(i);
+				fwd[i] = fwd[i] + fwd[i-1];
+			}
+			return {
+				fwdLen: fwd[fwd.length-1],
+				revLen: str.length,
+				fwd: fwd,
+				rev: rev
+			};
+		}
+
 	}
 
 };

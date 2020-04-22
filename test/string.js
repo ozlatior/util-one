@@ -1,5 +1,7 @@
 const assert = require("assert");
 
+const colors = require("colors");
+
 const string = require("../index.js").string;
 
 describe("String utilities", () => {
@@ -48,6 +50,57 @@ describe("String utilities", () => {
 			assert.equal(res, exp);
 		});
 
+	});
+
+	describe("test of colors functions", () => {
+
+		it("properly determiens indexOf in a formatted string", () => {
+			let sub = function(str) {
+				let clr = string.colors.remove(str);
+				for (let i=0; i<clr.length; i++) {
+					assert.equal(clr.indexOf(clr[i]), string.colors.indexOf(clr[i], str));
+					assert.equal(clr.indexOf(clr[i], i-1), string.colors.indexOf(clr[i], str, i-1));
+				}
+			};
+			sub("unformatted string");
+			sub("monoformatted".red.bold);
+			sub([ "zero", "one".red, "two", "three".green.bold, "four".bgYellow.green, "five", "six".red ].join(" "));
+			sub([ "zero".green, "one".red, "two", "three".green.bold, "four".bgYellow.green, "five", "six"].join(" "));
+		});
+
+		it("properly determiens charAt in a formatted string", () => {
+			let sub = function(str) {
+				let clr = string.colors.remove(str);
+				for (let i=0; i<clr.length; i++) {
+					assert.equal(clr.charAt(i), string.colors.charAt(i, str));
+				}
+			};
+			sub("unformatted string");
+			sub("monoformatted".red.bold);
+			sub([ "zero", "one".red, "two", "three".green.bold, "four".bgYellow.green, "five", "six".red ].join(" "));
+			sub([ "zero".green, "one".red, "two", "three".green.bold, "four".bgYellow.green, "five", "six"].join(" "));
+		});
+
+		it("properly slices formatted strings", () => {
+			let sub = function(str) {
+				let clr = string.colors.remove(str);
+				for (let i=0; i<clr.length+3; i++) {
+					assert.equal(clr.slice(i), string.colors.remove(string.colors.slice(str, i)));
+					assert.equal(clr.slice(-i), string.colors.remove(string.colors.slice(str, -i)));
+					for (let j=0; j<clr.length+3; j++) {
+						assert.equal(clr.slice(i, j), string.colors.remove(string.colors.slice(str, i, j)));
+						assert.equal(clr.slice(i, -j), string.colors.remove(string.colors.slice(str, i, -j)));
+						assert.equal(clr.slice(-i, j), string.colors.remove(string.colors.slice(str, -i, j)));
+						assert.equal(clr.slice(-i, -j), string.colors.remove(string.colors.slice(str, -i, -j)));
+					}
+				}
+			};
+			sub("unformatted string");
+			sub("monoformatted".red.bold);
+			sub([ "zero", "one".red, "two", "three".green.bold, "four".bgYellow.green, "five", "six".red ].join(" "));
+			sub([ "zero".green, "one".red, "two", "three".green.bold, "four".bgYellow.green, "five", "six"].join(" "));
+		});
+	
 	});
 
 });
