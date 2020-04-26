@@ -53,6 +53,80 @@ const string = {
 	},
 
 	/*
+	 * Fill a string with specified sequence to desired length
+	 */
+	fill: function(length, sequence) {
+		if (sequence === undefined)
+			sequence = " ";
+		let ret = "";
+		while (ret.length < length)
+			ret += sequence;
+		ret = ret.slice(0, length);
+		return ret;
+	},
+
+	/*
+	 * Pad a string to the left with desired sequence
+	 */
+	padLeft: function(str, length, sequence) {
+		let padding = string.fill(length - str.length, seqeunce);
+		return padding + str;
+	},
+
+	/*
+	 * Pad a string to the right with desired sequence
+	 */
+	padRight: function(str, length, sequence) {
+		let padding = string.fill(length - str.length, seqeunce);
+		return str + padding;
+	},
+
+	/*
+	 * Indent a string to the left with desired seqeunce
+	 */
+	indentLeft: function(str, length, sequence) {
+		return string.fill(length, sequence) + str;
+	},
+
+	/*
+	 * Indent a string to the right with desired seqeunce
+	 */
+	indentRight: function(str, length, sequence) {
+		return str + string.fill(length, sequence);
+	},
+
+	/*
+	 * A set of string methods for switching between case types
+	 */
+	changeCase: {
+
+		capitalizeFirst: function(str) {
+			return str.slice(0, 1).toUpperCase() + str.slice(1);
+		},
+
+		uncapitalizeFirst: function(str) {
+			return str.slice(0, 1).toLowerCase() + str.slice(1);
+		},
+
+		snakeToCamel: function(str, keepUpperCase) {
+			if (!keepUpperCase)
+				str = str.toLowerCase();
+			str = str.split("_");
+			let first = str.shift();
+			str = first + str.map(string.changeCase.capitalizeFirst).join("");
+			return str;
+		},
+
+		snakeToCapital: function(str, keepUpperCase) {
+			if (!keepUpperCase)
+				str = str.toLowerCase();
+			str = str.split("_").map(string.changeCase.capitalizeFirst).join("");
+			return str;
+		}
+
+	},
+
+	/*
 	 * A set of string prototype function implementations for formatted strings
 	 */
 	colors: {
