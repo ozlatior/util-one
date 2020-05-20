@@ -52,6 +52,77 @@ describe("String utilities", () => {
 
 	});
 
+	describe("test of case change functions", () => {
+
+		describe("camel to snake", () => {
+
+			it("properly converts simple camel case to snake case", () => {
+				let str = "simpleCamelCase";
+				let exp = "simple_camel_case";
+				let res = string.changeCase.camelToSnake(str);
+				assert.equal(res, exp);
+			});
+
+			it("properly converts capital case to snake case", () => {
+				let str = "CapitalCase";
+				let exp = "capital_case";
+				let res = string.changeCase.camelToSnake(str);
+				assert.equal(res, exp);
+			});
+
+			it("properly converts simple camel case to snake case, single letter", () => {
+				let str = "getX";
+				let exp = "get_x";
+				let res = string.changeCase.camelToSnake(str);
+				assert.equal(res, exp);
+			});
+
+			it("properly converts capital case to snake case, single letter", () => {
+				let str = "XGet";
+				let exp = "x_get";
+				let res = string.changeCase.camelToSnake(str);
+				assert.equal(res, exp);
+			});
+
+			it("properly converts simple camel case to snake case, capital sequence middle", () => {
+				let str = "getXYZCoordinates";
+				let exp = "get_xyz_coordinates";
+				let res = string.changeCase.camelToSnake(str);
+				assert.equal(res, exp);
+			});
+
+			it("properly converts simple camel case to snake case, capital sequence final", () => {
+				let str = "getXYZ";
+				let exp = "get_xyz";
+				let res = string.changeCase.camelToSnake(str);
+				assert.equal(res, exp);
+			});
+
+			it("properly converts capital case to snake case, single letter, preserve capitals", () => {
+				let str = "XGet";
+				let exp = "X_get";
+				let res = string.changeCase.camelToSnake(str, true);
+				assert.equal(res, exp);
+			});
+
+			it("properly converts simple camel case to snake case, capital sequence middle, preserve capitals", () => {
+				let str = "getXYZCoordinates";
+				let exp = "get_XYZ_coordinates";
+				let res = string.changeCase.camelToSnake(str, true);
+				assert.equal(res, exp);
+			});
+
+			it("properly converts simple camel case to snake case, capital sequence final, preserve capitals", () => {
+				let str = "getXYZ";
+				let exp = "get_XYZ";
+				let res = string.changeCase.camelToSnake(str, true);
+				assert.equal(res, exp);
+			});
+
+		});
+
+	});
+
 	describe("test of colors functions", () => {
 
 		it("properly determiens indexOf in a formatted string", () => {

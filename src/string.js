@@ -122,6 +122,35 @@ const string = {
 				str = str.toLowerCase();
 			str = str.split("_").map(string.changeCase.capitalizeFirst).join("");
 			return str;
+		},
+
+		camelToSnake: function(str, keepUpperCase) {
+			// simpleCamelCase -> simple_camel_case
+			// CapitalCase -> capital_case
+			// getX -> get_x
+			// XGet -> x_get / X_get
+			// getXYZ -> get_xyz / get_XYZ
+			// getXYZCoordinates -> get_xyz_coordinates / get_XYZ_coordinates
+			let m = str.match(/[A-Z][a-z]/g);
+			if (m !== null) {
+				for (let i=0; i<m.length; i++)
+					str = str.replace(m[i], "_" + m[i].toLowerCase());
+			}
+			m = str.match(/(?<=[a-z]|^)[A-Z]+(?=_|$)/g);
+			if (m !== null) {
+				for (let i=0; i<m.length; i++) {
+					if (keepUpperCase)
+						str = str.replace(m[i], "_" + m[i]);
+					else
+						str = str.replace(m[i], "_" + m[i].toLowerCase());
+				}
+			}
+			str = str.replace(/^_/, "");
+			return str;
+		},
+
+		capitalToSnake: function(str, keepUpperCase) {
+			return string.camelToSnake(str, keepUpperCase);
 		}
 
 	},
