@@ -34,6 +34,17 @@ const object = {
 			ret[i] = object.deepCopy(a[i]);
 		}
 		return ret;
+	},
+
+	deepRead: function(obj, path) {
+		path = path.slice(0);
+		let value = obj;
+		while (path.length) {
+			if (typeof(value) !== "object")
+				return undefined;
+			value = value[path.shift()];
+		}
+		return value;
 	}
 
 };
