@@ -69,7 +69,8 @@ const string = {
 	 * Pad a string to the left with desired sequence
 	 */
 	padLeft: function(str, length, sequence) {
-		let padding = string.fill(length - str.length, seqeunce);
+		str = "" + str;
+		let padding = string.fill(length - str.length, sequence);
 		return padding + str;
 	},
 
@@ -77,8 +78,44 @@ const string = {
 	 * Pad a string to the right with desired sequence
 	 */
 	padRight: function(str, length, sequence) {
-		let padding = string.fill(length - str.length, seqeunce);
+		str = "" + str;
+		let padding = string.fill(length - str.length, sequence);
 		return str + padding;
+	},
+
+	/*
+	 * Pad or trim string to the left to desired length (fill with desired sequence)
+	 */
+	boxLeft: function(str, length, sequence) {
+		str = "" + str;
+		if (str.length >= length)
+			return str.slice(-length);
+		return string.padLeft(str, length, sequence);
+	},
+
+	/*
+	 * Pad or trim string to the right to desired length (fill with desired sequence)
+	 */
+	boxRight: function(str, length, sequence) {
+		str = "" + str;
+		if (str.length >= length)
+			return str.slice(0, length);
+		return string.padRight(str, length, sequence);
+	},
+
+	/*
+	 * Pad or trim string to the left and right to desired length (fill with desired sequence)
+	 * abcde -> bcd
+	 * abcdef -> bcd
+	 */
+	boxCenter: function(str, length, sequence) {
+		str = "" + str;
+		let dif = str.length - length;
+		if (str.length >= length)
+			return str.slice(Math.floor(dif/2), -Math.ceil(dif/2));
+		str = string.padLeft(str, str.length - Math.floor(dif/2), sequence);
+		str = string.padRight(str, length, sequence);
+		return str;
 	},
 
 	/*
