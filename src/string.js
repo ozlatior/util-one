@@ -188,6 +188,20 @@ const string = {
 
 		capitalToSnake: function(str, keepUpperCase) {
 			return string.camelToSnake(str, keepUpperCase);
+		},
+
+		isUpperCase: function(str) {
+			if (str === str.toUpperCase())
+				return true;
+			return false;
+		},
+
+		titleCase: function(str, keepUpperCase) {
+			return str.split(" ").map((item) => {
+				if (keepUpperCase && string.isUpperCase(item))
+					return item;
+				return string.capitalizeFirst(item.toLowerCase())
+			}).join(" ");
 		}
 
 	},
