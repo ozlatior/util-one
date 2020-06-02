@@ -45,6 +45,17 @@ const object = {
 			value = value[path.shift()];
 		}
 		return value;
+	},
+
+	createEmptyPath: function(obj, path) {
+		path = path.slice(0);
+		let target = obj;
+		for (let i=0; i<path.length; i++) {
+			if (target[path[i]] === undefined)
+				target[path[i]] = {};
+			target = target[path[i]];
+		}
+		return target;
 	}
 
 };
