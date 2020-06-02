@@ -88,7 +88,7 @@ const string = {
 	 */
 	boxLeft: function(str, length, sequence) {
 		str = "" + str;
-		if (str.length >= length)
+		if (str.length > length)
 			return str.slice(-length);
 		return string.padLeft(str, length, sequence);
 	},
@@ -98,7 +98,7 @@ const string = {
 	 */
 	boxRight: function(str, length, sequence) {
 		str = "" + str;
-		if (str.length >= length)
+		if (str.length > length)
 			return str.slice(0, length);
 		return string.padRight(str, length, sequence);
 	},
@@ -111,7 +111,7 @@ const string = {
 	boxCenter: function(str, length, sequence) {
 		str = "" + str;
 		let dif = str.length - length;
-		if (str.length >= length)
+		if (str.length > length)
 			return str.slice(Math.floor(dif/2), -Math.ceil(dif/2));
 		str = string.padLeft(str, str.length - Math.floor(dif/2), sequence);
 		str = string.padRight(str, length, sequence);
