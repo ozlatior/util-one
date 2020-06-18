@@ -56,6 +56,17 @@ const object = {
 			target = target[path[i]];
 		}
 		return target;
+	},
+
+	map: function(obj, fn, path) {
+		if (path === undefined)
+			path = [];
+		if (typeof(obj) !== "object" || obj instanceof Array || obj === null)
+			return fn(path, obj);
+		let ret = {};
+		for (let i in obj)
+			ret[i] = object.map(obj[i], fn, path.concat([i]));
+		return ret;
 	}
 
 };
