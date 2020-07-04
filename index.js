@@ -3,9 +3,11 @@ const bitwise = require("./src/bitwise.js");
 const html = require("./src/html.js");
 const object = require("./src/object.js");
 const string = require("./src/string.js");
+const path = require("./src/path.js");
 
 module.exports.array = array;
 module.exports.bitwise = bitwise;
 module.exports.html = html;
 module.exports.object = object;
 module.exports.string = string;
+module.exports.path = path;
