@@ -58,14 +58,40 @@ const object = {
 		return target;
 	},
 
-	map: function(obj, fn, path) {
+	map: function(obj, fn, maxDepth, path) {
 		if (path === undefined)
 			path = [];
 		if (typeof(obj) !== "object" || obj instanceof Array || obj === null)
 			return fn(path, obj);
+		if (path.length >= maxDepth)
+			return fn(path, "[ Object ]");
 		let ret = {};
 		for (let i in obj)
-			ret[i] = object.map(obj[i], fn, path.concat([i]));
+			ret[i] = object.map(obj[i], fn, maxDepth, path.concat([i]));
+		return ret;
+	},
+
+	fromIntMap: function(value, keys) {
+		let ret = {};
+		for (let i in keys) {
+			if (typeof(keys[i]) !== "number" || keys[i] !== parseInt(keys[i]))
+				continue;
+			if ((value & keys[i]) === keys[i])
+				ret[i] = true;
+			else
+				ret[i] = false;
+		}
+		return ret;
+	},
+
+	toIntMap: function(obj, keys, allowTrueish) {
+		let ret = 0;
+		for (let i in keys) {
+			if (typeof(keys[i]) !== "number" || keys[i] !== parseInt(keys[i]))
+				continue;
+			if (obj[i] === true || (allowTrueish && obj[i]))
+				ret |= keys[i];
+		}
 		return ret;
 	}
 
