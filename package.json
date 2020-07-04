@@ -1,11 +1,35 @@
 {
-	"name": "util-one",
-	"version": "0.0.1",
-	"scripts": {
-		"test": "mocha"
-	},
-	"dependencies": {
-		"mocha": "*",
-		"colors": "*"
-	}
+  "name": "util-one",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "mocha": "*",
+    "colors": "*"
+  },
+  "description": "An utility library I keep adding to as I need new features in other projects",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ozlatior/util-one.git"
+  },
+  "keywords": [
+    "utilities",
+    "utility",
+    "util",
+	"string utils",
+	"object utils",
+	"array utils"
+  ],
+  "author": "Octav Zlatior",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ozlatior/util-one/issues"
+  },
+  "homepage": "https://github.com/ozlatior/util-one#readme"
 }
